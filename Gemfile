@@ -6,7 +6,7 @@ ruby '2.4.1'
 gem 'rails', '~> 5.2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
-
+gem 'bcrypt'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
