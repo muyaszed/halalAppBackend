@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'reataurant API', type: :request do
-
-    let!(:restaurants) { create_list(:restaurant, 10)}
+    let(:user) { create(:user)}
+    let!(:restaurants) { create_list(:restaurant, 10, user_id: user.id)}
     let(:restaurant_id) {restaurants.first.id}
+    let(:headers) {valid_headers}
 
     describe 'GET /restaurants' do
-        before {get '/restaurants'}
+        before {get '/restaurants', params: {}, headers: headers}
 
         it 'returns restaurant' do
+            
             expect(json).not_to be_empty
             expect(json.size).to eq(10)
         end
@@ -21,16 +23,22 @@ RSpec.describe 'reataurant API', type: :request do
     describe 'POST /restaurants' do
         #valid payloads
         let (:valid_data) { 
-                            {
-                                name: 'Tumes Cafe',
-                                location: 'Cheras',
-                                category: 'Johore Food'
-                            }
+                                {
+                                    name: 'Tumes Cafe',
+                                    location: 'Cheras',
+                                    category: 'Johore Food',
+                                    user_id: user.id
+                                }.to_json
+                            
                           }
         context 'when the request is valid' do
-            before { post '/restaurants', params: valid_data }
+            
+            before { 
+                
+                post '/restaurants', params: valid_data, headers: headers }
 
             it 'create new restaurants' do
+                
                 expect(json['name']).to eq('Tumes Cafe')
                 expect(json['location']).to eq('Cheras')
             end
@@ -41,7 +49,7 @@ RSpec.describe 'reataurant API', type: :request do
         end
 
         context 'request is not valid' do
-            before { post '/restaurants', params: {name: 'Tumes Cafe', category: 'Johore Food'} }
+            before { post '/restaurants', params: {name: 'Tumes Cafe', category: 'Johore Food'}.to_json, headers: headers }
 
             it 'returns the code 422' do
                 expect(response).to have_http_status(422)
@@ -56,7 +64,7 @@ RSpec.describe 'reataurant API', type: :request do
 
     describe 'GET /restaurants/:id' do
         
-        before { get "/restaurants/#{restaurant_id}"}
+        before { get "/restaurants/#{restaurant_id}", params: {}, headers: headers}
         
         context 'when the reord exist' do
             it 'return the restaurant' do
@@ -89,10 +97,10 @@ RSpec.describe 'reataurant API', type: :request do
                                 name: 'Tumes Cafe',
                                 location: 'Cheras',
                                 category: 'Johore Food'
-                            }
+    }.to_json
                           }
         context 'when the record exist' do
-            before { put "/restaurants/#{restaurant_id}", params: valid_data }
+            before { put "/restaurants/#{restaurant_id}", params: valid_data, headers: headers }
             it 'updates the record' do
                 expect(response.body).to be_empty
             end
@@ -105,7 +113,7 @@ RSpec.describe 'reataurant API', type: :request do
     end
 
     describe 'DELETE /restaurants/:id' do
-        before { delete "/restaurants/#{restaurant_id}" }
+        before { delete "/restaurants/#{restaurant_id}", params: {}, headers: headers }
     
         it 'returns status code 204' do
           expect(response).to have_http_status(204)

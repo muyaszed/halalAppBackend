@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
 
     def index
+        
         @restaurants = Restaurant.all
         json_response(@restaurants)
     end
@@ -12,7 +13,8 @@ class RestaurantsController < ApplicationController
     end
 
     def create
-        @restaurant = Restaurant.create!(restaurant_params)
+        
+        @restaurant = current_user.restaurants.create!(restaurant_params)
         json_response(@restaurant, :created)
 
     end

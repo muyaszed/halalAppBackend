@@ -3,5 +3,6 @@ FactoryBot.define do
         name { Faker::RockBand.name}
         location { Faker::WorldCup.city}
         category { Faker::Food.dish}
+        user
     end
 end
