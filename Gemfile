@@ -8,6 +8,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'bcrypt'
 gem 'jwt'
+gem 'active_model_serializers', '~> 0.10.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

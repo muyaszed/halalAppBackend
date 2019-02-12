@@ -16,8 +16,9 @@ module V1
         def create
             
             @restaurant = current_user.restaurants.create!(restaurant_params)
+           
             json_response(@restaurant, :created)
-
+            
         end
 
         def update
@@ -35,7 +36,7 @@ module V1
         private
 
         def restaurant_params
-            params.permit(:name, :location, :category)
+            params.permit(:name, :location, :category, :desc)
         end
     end
 end

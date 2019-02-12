@@ -26,6 +26,7 @@ RSpec.describe 'reataurant API', type: :request do
                                     name: 'Tumes Cafe',
                                     location: 'Cheras',
                                     category: 'Johore Food',
+                                    desc: 'This is a description',
                                     user_id: user.id
                                 }.to_json
                             
@@ -37,7 +38,6 @@ RSpec.describe 'reataurant API', type: :request do
                 post '/restaurants', params: valid_data, headers: headers }
 
             it 'create new restaurants' do
-                byebug
                 expect(json['name']).to eq('Tumes Cafe')
                 expect(json['location']).to eq('Cheras')
             end
@@ -48,7 +48,7 @@ RSpec.describe 'reataurant API', type: :request do
         end
 
         context 'request is not valid' do
-            before { post '/restaurants', params: {name: 'Tumes Cafe', category: 'Johore Food'}.to_json, headers: headers }
+            before { post '/restaurants', params: {name: 'Tumes Cafe', category: 'Johore Food', desc: 'Description'}.to_json, headers: headers }
 
             it 'returns the code 422' do
                 expect(response).to have_http_status(422)
