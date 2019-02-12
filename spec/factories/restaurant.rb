@@ -1,8 +1,10 @@
 FactoryBot.define do
     factory :restaurant do
-        name { Faker::RockBand.name}
+        name { Faker::Restaurant.name }
         location { Faker::WorldCup.city}
-        category { Faker::Food.dish}
+        category { Faker::Restaurant.name }
         user
+
+        
     end
 end

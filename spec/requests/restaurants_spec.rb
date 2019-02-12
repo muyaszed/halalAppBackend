@@ -10,7 +10,6 @@ RSpec.describe 'reataurant API', type: :request do
         before {get '/restaurants', params: {}, headers: headers}
 
         it 'returns restaurant' do
-            
             expect(json).not_to be_empty
             expect(json.size).to eq(10)
         end
@@ -38,7 +37,7 @@ RSpec.describe 'reataurant API', type: :request do
                 post '/restaurants', params: valid_data, headers: headers }
 
             it 'create new restaurants' do
-                
+                byebug
                 expect(json['name']).to eq('Tumes Cafe')
                 expect(json['location']).to eq('Cheras')
             end

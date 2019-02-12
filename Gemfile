@@ -23,12 +23,13 @@ group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails' #added for testing
+  
 end
 
 group :test do #added for testing
   gem 'factory_bot_rails'#added for testing
   gem 'shoulda-matchers'#added for testing
-  gem 'faker'#added for testing
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'#added for testing
   gem 'database_cleaner'#added for testing
 end#added for testing
 

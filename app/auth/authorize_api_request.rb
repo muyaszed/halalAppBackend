@@ -1,6 +1,7 @@
 class AuthorizeApiRequest
 
     def initialize(headers={})
+      
       @headers = headers
     end
   
@@ -15,6 +16,7 @@ class AuthorizeApiRequest
     attr_reader :headers
   
     def user
+      
       @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
   
     rescue ActiveRecord::RecordNotFound => e
