@@ -6,8 +6,9 @@ Rails.application.routes.draw do
     end
 
     resources :profiles, only: [:update]
+    resources :users, only: [:show]
   end
 
   post 'auth/login', to: 'authentication#authenticate'
-  post 'signup', to: 'users#create'
+  post 'signup', to: 'authentication#create'
 end
