@@ -14,7 +14,6 @@ module V1
         end
 
         def create
-            
             @restaurant = current_user.restaurants.create!(restaurant_params)
            
             json_response(@restaurant, :created)
