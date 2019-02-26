@@ -8,6 +8,6 @@ class V1::ProfilesController < ApplicationController
     private
 
     def profile_params
-        params.permit(:avatar)
+        params.permit(:avatar, :first_name, :last_name)
     end
 end

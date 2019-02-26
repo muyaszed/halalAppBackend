@@ -2,7 +2,8 @@ class V1::ReviewsController < ApplicationController
     def index
         @restaurant = Restaurant.find(params[:restaurant_id])
         @reviews = @restaurant.reviews.all
-        json_response(@reviews)
+        # json_response(@reviews)
+        render json: @reviews, status: :ok, include: "**"
     end
 
     def create
