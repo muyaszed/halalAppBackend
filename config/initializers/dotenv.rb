@@ -1,0 +1,1 @@
+Dotenv.require_keys("GEOCODE_API")

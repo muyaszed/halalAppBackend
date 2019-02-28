@@ -4,7 +4,7 @@ class User < ApplicationRecord
     has_many :restaurants, dependent: :destroy
     has_many :reviews, dependent: :destroy
     has_one :profile
-    validates :first_name, :last_name, :email, :password_digest, presence: true
+    validates :email, :password_digest, presence: true
 
     def build_profile
         self.create_profile()

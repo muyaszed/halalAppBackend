@@ -2,13 +2,14 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.1'
-
+gem 'dotenv-rails', groups: [:development, :test]
 gem 'rails', '~> 5.2.2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'bcrypt'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'geocoder'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
