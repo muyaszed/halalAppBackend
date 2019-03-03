@@ -3,7 +3,7 @@ class User < ApplicationRecord
     has_secure_password
     has_many :restaurants, dependent: :destroy
     has_many :reviews, dependent: :destroy
-    has_one :profile
+    has_one :profile, dependent: :destroy
     validates :email, :password_digest, presence: true
 
     def build_profile

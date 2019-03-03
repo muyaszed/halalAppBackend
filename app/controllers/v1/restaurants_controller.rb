@@ -35,7 +35,7 @@ module V1
         private
 
         def restaurant_params
-            params.permit(:name, :location, :category, :desc)
+            params.permit(:name, :location, :category, :desc, :cuisine, :web, :start, :end)
         end
     end
 end
