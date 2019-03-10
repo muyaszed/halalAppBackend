@@ -10,8 +10,15 @@ gem 'bcrypt'
 gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'geocoder'
+
+gem 'activestorage-imgur', '1.0.0', :path => "vendor/gems/activestorage-imgur-1.0.0"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
+
+
+#this gem is for tweaking activestorage-imgur
+gem "down", "~> 4.4"
+gem 'imgurapi'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
