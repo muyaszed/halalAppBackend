@@ -11,7 +11,7 @@ gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'geocoder'
 
-gem 'activestorage-imgur', '1.0.0', :path => "vendor/gems/activestorage-imgur-1.0.0"
+gem 'activestorage-imgur', :git => 'https://github.com/muyaszed/activestorage-imgur.git', :branch => 'master'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
