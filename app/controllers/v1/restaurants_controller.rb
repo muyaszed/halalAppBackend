@@ -15,14 +15,19 @@ module V1
 
         def create
             @restaurant = current_user.restaurants.create!(restaurant_params)
-           
+            @location = @restaurant.create_location(restaurant_params)
+            @restaurant.update(location: @location)
+            attach_cover(params[:cover]) if params[:cover]
             json_response(@restaurant, :created)
             
         end
 
         def update
             @restaurant = Restaurant.find(params[:id])
-            @restaurant.update(restaurant_params)
+            @restaurant.update!(restaurant_params)
+            @location = @restaurant.create_location(restaurant_params)
+            @restaurant.update(location: @location)
+            attach_cover(params[:cover]) if params[:cover]
             head :no_content
         end
 
@@ -35,7 +40,13 @@ module V1
         private
 
         def restaurant_params
-            params.permit(:name, :location, :category, :desc, :cuisine, :web, :start, :end)
+            params.permit(:name, :address, :city, :country, :postcode, :category, :desc, :cuisine, :web, :start, :end)
+        end
+
+        def attach_cover(image)
+            @restaurant.cover.attach(image)
+            @uri = url_for(@restaurant.cover)
+            @restaurant.update(cover_uri: @uri)
         end
     end
 end

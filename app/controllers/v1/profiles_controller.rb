@@ -2,7 +2,7 @@ class V1::ProfilesController < ApplicationController
     def update
         
         @profile = Profile.find(params[:id])
-        attach_avatar
+        attach_avatar(params[:avatar])
         head :no_content
     end
 
@@ -14,9 +14,9 @@ class V1::ProfilesController < ApplicationController
         params.permit(:first_name, :last_name)
     end
 
-    def attach_avatar
-        if params[:avatar]
-            @profile.avatar.attach(params[:avatar])
+    def attach_avatar(image)
+        if image
+            @profile.avatar.attach(image)
             @uri = url_for(@profile.avatar)
             @profile.update(avatar_uri: @uri)
         else
