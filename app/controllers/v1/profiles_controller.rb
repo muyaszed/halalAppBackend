@@ -2,6 +2,7 @@ class V1::ProfilesController < ApplicationController
     def update
         
         @profile = Profile.find(params[:id])
+        # byebug
         attach_avatar(params[:avatar])
         head :no_content
     end

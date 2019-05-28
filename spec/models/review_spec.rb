@@ -7,4 +7,12 @@ RSpec.describe Review, type: :model do
   it {should belong_to(:user)}
   it {should belong_to(:restaurant)}
 
+  describe 'Photo Attachement' do
+    let(:review) {create :review, :with_photo}
+
+    it 'is valid' do
+      expect(review.photo).to be_attached
+    end
+  end
+
 end

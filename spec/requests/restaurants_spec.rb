@@ -24,13 +24,21 @@ RSpec.describe 'reataurant API', type: :request do
         let (:valid_data) { 
                                 {
                                     name: 'Tumes Cafe',
-                                    location: 'Cheras',
-                                    category: 'Johore Food',
+                                    category: 'Restaurant',
+                                    cuisine: 'Masakan melayu',
+                                    address: '31, Jalan Bakawali 1',
+                                    city: 'Johor Bahru',
+                                    postcode: '81100',
+                                    country: 'Malaysia',
+                                    web: 'www.tumescafe.com',
+                                    start: '8',
+                                    end: '10',
                                     desc: 'This is a description',
                                     user_id: user.id
                                 }.to_json
                             
                           }
+
         context 'when the request is valid' do
             
             before { 
@@ -38,8 +46,10 @@ RSpec.describe 'reataurant API', type: :request do
                 post '/restaurants', params: valid_data, headers: headers }
 
             it 'create new restaurants' do
+                
                 expect(json['name']).to eq('Tumes Cafe')
-                expect(json['location']).to eq('Cheras')
+                data = JSON.parse(valid_data)
+                expect(json['location']).to eq(data['address']+','+data['city']+','+data['postcode']+','+data['country'])
             end
 
             it 'returns status code of 201' do
@@ -54,9 +64,6 @@ RSpec.describe 'reataurant API', type: :request do
                 expect(response).to have_http_status(422)
             end
 
-            it 'returns failure message' do
-                expect(response.body).to match("{\"message\":\"Validation failed: Location can't be blank\"}")
-            end
         end
         
     end

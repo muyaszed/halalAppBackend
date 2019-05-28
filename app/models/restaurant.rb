@@ -12,10 +12,9 @@ class Restaurant < ApplicationRecord
         
         address = object[:address] || ""
         city = object[:city] || ""
-        postcode = object[:postcoe] || ""
+        postcode = object[:postcode] || ""
         country = object[:country] || ""
-        
-        address.concat(",", city, ",", postcode, ",", country)
+        complete_address = address+","+city+","+postcode+","+country
     end
 
 end

@@ -1,6 +1,12 @@
 FactoryBot.define do
     factory :profile do
-        avatar { Faker::Avatar.image }
+       
+        first_name { Faker::Name.first_name }
+        last_name { Faker::Name.last_name }
         user
+
+        trait :with_avatar do
+            avatar { AttachedHelper.jpg }
+        end
     end
 end
