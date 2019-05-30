@@ -6,6 +6,9 @@ class User < ApplicationRecord
     has_one :profile, dependent: :destroy
     validates :email, :password_digest, presence: true
 
+    has_many :bookmarks
+    has_many :bookmarked_restaurant, through: :bookmarks, source: :restaurant
+
     def build_profile
         self.create_profile()
     end
