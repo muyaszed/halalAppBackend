@@ -6,6 +6,9 @@ class Restaurant < ApplicationRecord
     geocoded_by :location
     after_validation :geocode, :if => :location_changed?
 
+    has_many :bookmarks
+    has_many :bookmarking_user, through: :bookmarks, source: :user
+
     
 
     def create_location(object)
@@ -16,6 +19,14 @@ class Restaurant < ApplicationRecord
         country = object[:country] || ""
         
         address.concat(",", city, ",", postcode, ",", country)
+    end
+
+    def bookmark(user)
+        bookmarking_user << user
+    end
+
+    def unbookmark(user)
+        bookmarking_user.delete(user)
     end
 
 end

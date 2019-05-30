@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_111840) do
+ActiveRecord::Schema.define(version: 2019_05_28_170025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2019_03_14_111840) do
     t.string "key", null: false
     t.string "imgur_id", null: false
     t.index ["key"], name: "index_active_storage_imgur_key_mappings_on_key", unique: true
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_bookmarks_on_restaurant_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
