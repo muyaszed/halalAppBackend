@@ -4,7 +4,8 @@ module V1
         def index
             
             @restaurants = Restaurant.all
-            json_response(@restaurants)
+            # json_response(@restaurants)
+            render json: @restaurants, status: :ok, include: "**"
         end
 
         def show
