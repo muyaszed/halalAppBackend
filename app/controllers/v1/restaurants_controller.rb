@@ -11,7 +11,7 @@ module V1
         def show
             @restaurant = Restaurant.find(params[:id])
             
-            json_response(@restaurant)
+            render json: @restaurant, status: :ok, include: "**"
         end
 
         def create
