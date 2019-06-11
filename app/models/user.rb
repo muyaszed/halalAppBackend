@@ -9,6 +9,9 @@ class User < ApplicationRecord
     has_many :bookmarks
     has_many :bookmarked_restaurant, through: :bookmarks, source: :restaurant
 
+    has_many :check_ins
+    has_many :checked_ins, through: :check_ins, source: :restaurant
+
     def build_profile
         self.create_profile()
     end

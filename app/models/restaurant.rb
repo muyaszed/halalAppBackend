@@ -9,6 +9,9 @@ class Restaurant < ApplicationRecord
     has_many :bookmarks
     has_many :bookmarking_user, through: :bookmarks, source: :user
 
+    has_many :check_ins
+    has_many :checking_ins, through: :check_ins, source: :user
+
     
 
     def create_location(object)
@@ -26,6 +29,10 @@ class Restaurant < ApplicationRecord
 
     def unbookmark(user)
         bookmarking_user.delete(user)
+    end
+
+    def checkin(user)
+        checking_ins << user
     end
 
 end

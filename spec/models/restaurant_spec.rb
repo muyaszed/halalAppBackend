@@ -16,6 +16,8 @@ RSpec.describe Restaurant, type: :model do
   it {should belong_to(:user)}
   it {should have_many(:bookmarks)}
   it {should have_many(:bookmarking_user)}
+  it { should have_many(:check_ins)}
+  it { should have_many(:checking_ins)}
 
   describe 'create location' do
     let(:restaurant) {create(:restaurant)}

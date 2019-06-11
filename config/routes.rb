@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :reviews
       post ':user_id/bookmark_restaurant', to: 'bookmarks#bookmark_restaurant', as: :bookmark_restaurant
       post ':user_id/unbookmark_restaurant', to: 'bookmarks#unbookmark_restaurant', as: :unbookmark_restaurant
+
+      post ':user_id/checkin_restaurant', to: 'check_ins#checkin_restaurant', as: :checkin_restaurant
     end
 
     resources :profiles, only: [:update]
