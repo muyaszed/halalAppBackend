@@ -13,7 +13,8 @@ class UserSerializer < ActiveModel::Serializer
         arr <<  {
                   checkin: rest,
                   detail: Restaurant.find(rest.restaurant_id),
-                  time: rest.created_at.localtime.strftime("%d, %b %Y(%H:%M%P)")
+                  date: rest.created_at.localtime.strftime("%d, %b %Y(%H:%M%P)"),
+                  time: rest.created_at.localtime.to_i
                 }
       end
 
