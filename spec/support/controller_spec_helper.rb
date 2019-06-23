@@ -1,6 +1,7 @@
 module ControllerSpecHelper
-    def token_generator(user_id)
-      JsonWebToken.encode(user_id: user_id)
+    def token_generator(user_id="", fb_id="")
+      # byebug
+      JsonWebToken.encode(user_id: user_id, fb_id: fb_id) 
     end
   
     def expired_token_generator(user_id)

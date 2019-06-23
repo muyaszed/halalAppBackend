@@ -15,6 +15,8 @@ gem 'activestorage-imgur', :git => 'https://github.com/muyaszed/activestorage-im
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
+gem 'koala'
+
 
 #this gem is for tweaking activestorage-imgur
 gem "down", "~> 4.4"
@@ -40,6 +42,7 @@ group :test do #added for testing
   gem 'shoulda-matchers'#added for testing
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'#added for testing
   gem 'database_cleaner'#added for testing
+  gem 'webmock'
 end#added for testing
 
 group :development do

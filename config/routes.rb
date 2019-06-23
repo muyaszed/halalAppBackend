@@ -15,4 +15,5 @@ Rails.application.routes.draw do
 
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'authentication#create'
+  post 'auth/fb_login', to: 'facebook_authentication#create'
 end

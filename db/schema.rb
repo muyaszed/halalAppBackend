@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_11_212314) do
+ActiveRecord::Schema.define(version: 2019_06_18_131438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 2019_06_11_212314) do
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_check_ins_on_restaurant_id"
     t.index ["user_id"], name: "index_check_ins_on_user_id"
+  end
+
+  create_table "facebook_auths", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.string "email"
+    t.string "uid"
+    t.string "oauth_token"
+    t.string "fb_avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_facebook_auths_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
