@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticateFacebookUser do
-    $test_users = Koala::Facebook::TestUsers.new(:app_id => 407010653361287, :secret => "97328fb4dd77a2767e6aaa057dccc457")
+    $test_users = Koala::Facebook::TestUsers.new(:app_id => , :secret => "")
     $fb_account = $test_users.create(true, "email")
 
   after(:all) do

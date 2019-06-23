@@ -4,7 +4,7 @@ RSpec.describe 'FacebookAuthentication', type: :request do
   # Authentication test suite
   describe 'POST /auth/fb_login' do
 
-    $test_users = Koala::Facebook::TestUsers.new(:app_id => 407010653361287, :secret => "97328fb4dd77a2767e6aaa057dccc457")
+    $test_users = Koala::Facebook::TestUsers.new(:app_id => , :secret => "")
     $fb_account = $test_users.create(true, "email")
     # create test user
     let!(:user) { create(:user, email: $fb_account['email']) }
