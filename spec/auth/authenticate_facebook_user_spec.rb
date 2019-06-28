@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticateFacebookUser do
-    $test_users = Koala::Facebook::TestUsers.new(:app_id => , :secret => "")
+    $test_users = Koala::Facebook::TestUsers.new(:app_id => ENV['FACEBOOK_APP_ID'], :secret => ENV['FACEBOOK_APP_SECRET'])
     $fb_account = $test_users.create(true, "email")
 
   after(:all) do
@@ -15,67 +15,111 @@ RSpec.describe AuthenticateFacebookUser do
     context 'when valid credentials' do
         subject(:valid_auth_obj) { described_class.new($fb_account['access_token']) }
 
-        context 'user already have a normal account' do
+        describe 'user never login before' do
+            it 'returns user profile' do     
+                @user, @token = valid_auth_obj.call              
+                expect(@user).not_to be_nil
+                
+                expect(@user.is_a?(User)).to be true
+            end
+            it 'return acces token' do     
+                @user, @token = valid_auth_obj.call               
+                expect(@token).not_to be_nil                
+            end
+        end
 
+        describe 'user previously login with facebook only' do
             let!(:normal_user) { create(:user, email: $fb_account['email'])}
+            it 'returns user profile' do  
+                normal_user.create_facebook_auth(email: normal_user.email)   
+                @user, @token = valid_auth_obj.call             
+                
+                expect(@user.email).to eq(normal_user.email)
+            end
 
-            describe 'user already login using FB previously' do
+            it 'return acces token' do     
+                normal_user.create_facebook_auth(email: normal_user.email) 
+                @user, @token = valid_auth_obj.call               
+                expect(@token).not_to be_nil                
+            end
+        end
+
+        describe 'user previously login through normal account only' do
+            let!(:normal_user) { create(:user, email: $fb_account['email'])}
+            it 'returns user profile' do  
                 
-                let!(:user_with_prev_fb_login) {normal_user.create_facebook_auth!(email: normal_user['email']).user}
+                @user, @token = valid_auth_obj.call             
                 
-                it 'returns user profile' do     
-                    @user, @token = valid_auth_obj.call              
-                    expect(@user).to eq(user_with_prev_fb_login)
+                expect(@user.facebook_auth.email).to eq(normal_user.email)
+            end
+
+            it 'return acces token' do     
+                
+                @user, @token = valid_auth_obj.call               
+                expect(@token).not_to be_nil                
+            end
+        end
+    #     context 'user already have a normal account' do
+
+    #         let!(:normal_user) { create(:user, email: $fb_account['email'])}
+
+    #         describe 'user already login using FB previously' do
+                
+    #             let!(:user_with_prev_fb_login) {normal_user.create_facebook_auth!(email: normal_user['email']).user}
+                
+    #             it 'returns user profile' do     
+    #                 @user, @token = valid_auth_obj.call              
+    #                 expect(@user).to eq(user_with_prev_fb_login)
                     
-                end
-                it 'return acces token' do     
-                    @user, @token = valid_auth_obj.call               
-                    expect(@token).not_to be_nil
-                end
-            end
+    #             end
+    #             it 'return acces token' do     
+    #                 @user, @token = valid_auth_obj.call               
+    #                 expect(@token).not_to be_nil
+    #             end
+    #         end
             
-            describe 'user have not login using FB previously' do
+    #         describe 'user have not login using FB previously' do
                 
-                it 'merge account ' do    
-                    @user, @token = valid_auth_obj.call               
-                    expect(@user.facebook_auth).not_to be_nil
-                end
-                it 'return user profile' do   
-                    @user, @token = valid_auth_obj.call                
-                    expect(@user).to eq(normal_user)
-                end
-                it 'return token' do   
-                    @user, @token = valid_auth_obj.call                 
-                    expect(@token).not_to be_nil
-                end
-            end
-        end
+    #             it 'merge account ' do    
+    #                 @user, @token = valid_auth_obj.call               
+    #                 expect(@user.facebook_auth).not_to be_nil
+    #             end
+    #             it 'return user profile' do   
+    #                 @user, @token = valid_auth_obj.call                
+    #                 expect(@user).to eq(normal_user)
+    #             end
+    #             it 'return token' do   
+    #                 @user, @token = valid_auth_obj.call                 
+    #                 expect(@token).not_to be_nil
+    #             end
+    #         end
+    #     end
 
-        context 'user do not have a normal account' do
-            describe 'user already login using FB previously' do
-                it 'return token' do
-                    @user, @token = valid_auth_obj.call
-                    fb_user = FacebookAuth.create(email: $fb_account['email'])
-                    expect(@token).not_to be_nil
-                end
-                it 'return fb_user' do
-                    @user, @token = valid_auth_obj.call
-                    fb_user = FacebookAuth.create(email: $fb_account['email'])
-                    expect(@user['email']).to eq(fb_user['email'])
-                end
+    #     context 'user do not have a normal account' do
+    #         describe 'user already login using FB previously' do
+    #             it 'return token' do
+    #                 @user, @token = valid_auth_obj.call
+    #                 fb_user = FacebookAuth.create(email: $fb_account['email'])
+    #                 expect(@token).not_to be_nil
+    #             end
+    #             it 'return fb_user' do
+    #                 @user, @token = valid_auth_obj.call
+    #                 fb_user = FacebookAuth.create(email: $fb_account['email'])
+    #                 expect(@user['email']).to eq(fb_user['email'])
+    #             end
                 
-            end
-            describe 'user have not login using FB previously' do
-                it 'return token' do
-                    @user, @token = valid_auth_obj.call
-                     expect(@token).not_to be_nil
-                end
-                it 'return fb_user' do
-                    @user, @token = valid_auth_obj.call
-                    expect(@user).not_to be_nil
-                end
-            end
-        end
+    #         end
+    #         describe 'user have not login using FB previously' do
+    #             it 'return token' do
+    #                 @user, @token = valid_auth_obj.call
+    #                  expect(@token).not_to be_nil
+    #             end
+    #             it 'return fb_user' do
+    #                 @user, @token = valid_auth_obj.call
+    #                 expect(@user).not_to be_nil
+    #             end
+    #         end
+    #     end
     end
 
     # raise Authentication Error when invalid request

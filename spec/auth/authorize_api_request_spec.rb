@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.describe AuthorizeApiRequest do
 
   let(:user) { create(:user) }
-  let(:fb_user) { create(:facebook_auth)}
-  let(:header) { { 'Authorization' => token_generator(user.id, nil) } }
-  let(:header_with_fb) { { 'Authorization' => token_generator(nil, fb_user.uid) } }
+  let(:header) { { 'Authorization' => token_generator(user.id) } }
   subject(:invalid_request_obj) { described_class.new({}) }
   subject(:request_obj) { described_class.new(header) }
-  subject(:request_obj_with_fb) { described_class.new(header_with_fb) }
 
 
   describe '#call' do
@@ -16,14 +13,6 @@ RSpec.describe AuthorizeApiRequest do
       it 'returns user object' do
         result = request_obj.call
         expect(result[:user]).to eq(user)
-      end
-    end
-
-    context 'when valid request fb user' do
-      it 'returns user object' do
-        # byebug
-        result = request_obj_with_fb.call
-        expect(result[:user]).to eq(fb_user)
       end
     end
 
@@ -36,7 +25,7 @@ RSpec.describe AuthorizeApiRequest do
 
       context 'when invalid token' do
         subject(:invalid_request_obj) do
-          described_class.new('Authorization' => token_generator(5, nil))
+          described_class.new('Authorization' => token_generator(5))
         end
         it 'raises an InvalidToken error' do
           expect {invalid_request_obj.call}.to raise_error(ExceptionHandler::InvalidToken, /Invalid token/)
