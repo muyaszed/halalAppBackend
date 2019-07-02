@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
 
     resources :profiles, only: [:update]
-    resources :users, only: [:show]
+    resources :users, only: [:show, :update]
   end
 
   post 'auth/login', to: 'authentication#authenticate'

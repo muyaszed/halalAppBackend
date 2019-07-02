@@ -15,6 +15,13 @@ module V1
       json_response(@user)
     end
 
+    def update
+      
+      @user = User.find(params[:id])
+      @user.update(password_digest: params[:password])
+      head :no_content
+    end
+
     private
 
     def user_params
