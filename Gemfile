@@ -33,7 +33,7 @@ group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails' #added for testing
-  gem 'dotenv-rails'
+  gem 'dotenv-rails', '~> 2.7.4'
   
 end
 
