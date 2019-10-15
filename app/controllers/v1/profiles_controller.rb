@@ -2,7 +2,7 @@ class V1::ProfilesController < ApplicationController
     def update
         
         @profile = Profile.find(params[:id])
-        # byebug
+        
         attach_avatar(params[:avatar])
         head :no_content
     end
@@ -18,7 +18,7 @@ class V1::ProfilesController < ApplicationController
     def attach_avatar(image)
         if image
             @profile.avatar.attach(image)
-            @uri = url_for(@profile.avatar)
+            @uri = @profile.avatar.service_url
             @profile.update(avatar_uri: @uri)
         else
             @profile.update(profile_params)

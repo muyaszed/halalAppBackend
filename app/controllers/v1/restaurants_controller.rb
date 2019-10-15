@@ -9,6 +9,7 @@ module V1
         end
 
         def show
+            
             @restaurant = Restaurant.find(params[:id])
             
             render json: @restaurant, status: :ok, include: "**"
@@ -46,7 +47,7 @@ module V1
 
         def attach_cover(image)
             @restaurant.cover.attach(image)
-            @uri = url_for(@restaurant.cover)
+            @uri = @restaurant.cover.service_url
             @restaurant.update(cover_uri: @uri)
         end
     end
