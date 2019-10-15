@@ -7,4 +7,6 @@ class RestaurantSerializer < ActiveModel::Serializer
   def updated_at
     self.object.updated_at.to_i
   end
+
+  
 end

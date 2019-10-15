@@ -18,7 +18,9 @@ module V1
     def update
       
       @user = User.find(params[:id])
-      @user.update(password_digest: params[:password])
+      @user.password = params[:password]
+      @user.save
+      # @user.update(password_digest: params[:password])
       head :no_content
     end
 
