@@ -12,6 +12,7 @@ RSpec.describe Restaurant, type: :model do
   it {should validate_presence_of(:category)}
   it {should validate_presence_of(:start)}
   it {should validate_presence_of(:desc)}
+  it {should validate_presence_of(:contactNumber)}
   #association
   it {should belong_to(:user)}
   it {should have_many(:bookmarks)}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_131438) do
+ActiveRecord::Schema.define(version: 2020_07_25_155734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,12 @@ ActiveRecord::Schema.define(version: 2019_06_18_131438) do
     t.string "postcode"
     t.string "country"
     t.string "location"
+    t.string "contact_number"
+    t.jsonb "soc_med", default: "{}", null: false
+    t.boolean "family_friendly"
+    t.boolean "surau"
+    t.boolean "disabled_accessibility"
+    t.string "sub_header"
   end
 
   create_table "reviews", force: :cascade do |t|
