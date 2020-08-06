@@ -17,7 +17,7 @@ class V1::ProfilesController < ApplicationController
     def attach_avatar(image)
         if image
             @profile.avatar.attach(image)
-            @uri = @profile.avatar.service_url
+            @uri = url_for(@profile.avatar)
             @profile.update(avatar_uri: @uri)
         else
             @profile.update(profile_params)
