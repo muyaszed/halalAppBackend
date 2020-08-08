@@ -18,7 +18,6 @@ module V1
 
         def create
             params[:soc_med] = JSON.parse(params[:soc_med])
-            byebug
             @restaurant = current_user.restaurants.create!(restaurant_params)
             @location = @restaurant.create_location(restaurant_params)
             @restaurant.update(location: @location)
