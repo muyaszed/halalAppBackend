@@ -16,4 +16,12 @@ class User < ApplicationRecord
     def build_profile
         self.create_profile()
     end
+
+    has_settings do |s|
+        s.key :all, :defaults => {
+            :facebook_avatar => false,
+            :distance_unit => 'kilometer'
+        }
+    end
+
 end

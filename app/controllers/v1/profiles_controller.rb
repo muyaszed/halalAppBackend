@@ -1,8 +1,9 @@
 class V1::ProfilesController < ApplicationController
     def update
-        # @profile = Profile.find(params[:id])
         @profile = User.find(params[:id]).profile
-        attach_avatar(params[:avatar])
+        attach_avatar(params[:avatar]) if params[:avatar]
+        update_settings(params[:settings]) if params[:settings]
+        @profile.update(profile_params)
         head :no_content
     end
 
@@ -15,12 +16,16 @@ class V1::ProfilesController < ApplicationController
     end
 
     def attach_avatar(image)
-        if image
-            @profile.avatar.attach(image)
-            @uri = url_for(@profile.avatar)
-            @profile.update(avatar_uri: @uri)
-        else
-            @profile.update(profile_params)
-        end
+        @profile.avatar.attach(image)
+        @uri = url_for(@profile.avatar)
+        @profile.update(avatar_uri: @uri)
+    end
+
+    def update_settings(settings)
+        settings = JSON.parse(settings)
+        user = User.find(params[:id])
+        user.settings(:all).facebook_avatar = settings['facebook_avatar']
+        user.settings(:all).distance_unit = settings['distance_unit']
+        user.save!
     end
 end

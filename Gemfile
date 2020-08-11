@@ -16,8 +16,7 @@ gem "google-cloud-storage", "~> 1.11", require: false
 # gem 'mini_magick', '~> 4.8'
 
 gem 'koala'
-
-
+gem 'ledermann-rails-settings'
 #this gem is for tweaking activestorage-imgur
 gem "down", "~> 4.4"
 gem 'imgurapi'

@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-    attributes :id, :email, :checkinlist, :password_digest
+    attributes :id, :email, :checkinlist, :password_digest, :settings
     has_many :restaurants
     has_many :reviews
     has_one :profile
@@ -20,6 +20,13 @@ class UserSerializer < ActiveModel::Serializer
       end
 
       arr
+    end
+
+    def settings
+      {
+        :facebook_avatar => self.object.settings(:all).facebook_avatar,
+        :distance_unit => self.object.settings(:all).distance_unit
+      }
     end
 
   end
