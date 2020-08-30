@@ -13,6 +13,8 @@ class Restaurant < ApplicationRecord
     has_many :check_ins
     has_many :checking_ins, through: :check_ins, source: :user
 
+    has_many :halal_verifications, dependent: :destroy
+
     
 
     def create_location(object)

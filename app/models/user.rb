@@ -13,6 +13,8 @@ class User < ApplicationRecord
     has_many :check_ins
     has_many :checked_ins, through: :check_ins, source: :restaurant
 
+    has_one :halal_verification
+
     def build_profile
         self.create_profile()
     end

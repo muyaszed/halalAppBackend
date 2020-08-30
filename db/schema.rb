@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_09_204747) do
+ActiveRecord::Schema.define(version: 2020_08_28_204602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(version: 2020_08_09_204747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_facebook_auths_on_user_id"
+  end
+
+  create_table "halal_verifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "certificate", default: false
+    t.boolean "confirmation", default: false
+    t.boolean "logo", default: false
+    t.index ["restaurant_id"], name: "index_halal_verifications_on_restaurant_id"
+    t.index ["user_id"], name: "index_halal_verifications_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
