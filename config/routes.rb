@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post ':user_id/unbookmark_restaurant', to: 'bookmarks#unbookmark_restaurant', as: :unbookmark_restaurant
 
       post ':user_id/checkin_restaurant', to: 'check_ins#checkin_restaurant', as: :checkin_restaurant
+      post ':user_id/halal_verification', to: 'halal_verifications#verify_halal', as: :halal_verification
     end
 
     resources :profiles, only: [:update]

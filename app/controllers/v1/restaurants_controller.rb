@@ -1,20 +1,23 @@
+require 'json'
+
 module V1
     class RestaurantsController < ApplicationController
 
         def index
             
             @restaurants = Restaurant.all
-            # json_response(@restaurants)
             render json: @restaurants, status: :ok, include: "**"
         end
 
         def show
+            
             @restaurant = Restaurant.find(params[:id])
             
             render json: @restaurant, status: :ok, include: "**"
         end
 
         def create
+            params[:soc_med] = JSON.parse(params[:soc_med])
             @restaurant = current_user.restaurants.create!(restaurant_params)
             @location = @restaurant.create_location(restaurant_params)
             @restaurant.update(location: @location)
@@ -41,7 +44,11 @@ module V1
         private
 
         def restaurant_params
-            params.permit(:name, :address, :city, :country, :postcode, :category, :desc, :cuisine, :web, :start, :end)
+            params.permit(
+                :name, :address, :city, :country, :postcode, :category, :desc, 
+                :cuisine, :web, :start, :end, :contact_number, {:soc_med => [:facebook, :instagram, :twitter]}, :family_friendly,
+                :surau, :disabled_accessibility, :sub_header
+            )
         end
 
         def attach_cover(image)
