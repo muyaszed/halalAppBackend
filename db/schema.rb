@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_131438) do
+ActiveRecord::Schema.define(version: 2020_08_28_204602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,12 +34,6 @@ ActiveRecord::Schema.define(version: 2019_06_18_131438) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "active_storage_imgur_key_mappings", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "imgur_id", null: false
-    t.index ["key"], name: "index_active_storage_imgur_key_mappings_on_key", unique: true
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -72,6 +66,18 @@ ActiveRecord::Schema.define(version: 2019_06_18_131438) do
     t.index ["user_id"], name: "index_facebook_auths_on_user_id"
   end
 
+  create_table "halal_verifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "certificate", default: false
+    t.boolean "confirmation", default: false
+    t.boolean "logo", default: false
+    t.index ["restaurant_id"], name: "index_halal_verifications_on_restaurant_id"
+    t.index ["user_id"], name: "index_halal_verifications_on_user_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,6 +106,12 @@ ActiveRecord::Schema.define(version: 2019_06_18_131438) do
     t.string "postcode"
     t.string "country"
     t.string "location"
+    t.string "contact_number"
+    t.jsonb "soc_med", default: "{}", null: false
+    t.boolean "family_friendly"
+    t.boolean "surau"
+    t.boolean "disabled_accessibility"
+    t.string "sub_header"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -108,8 +120,20 @@ ActiveRecord::Schema.define(version: 2019_06_18_131438) do
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "photo_uri"
     t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "settings", id: :serial, force: :cascade do |t|
+    t.string "var", null: false
+    t.text "value"
+    t.string "target_type", null: false
+    t.integer "target_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+    t.index ["target_type", "target_id"], name: "index_settings_on_target_type_and_target_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
-    validates :name, :address, :city, :country, :postcode, :category, :cuisine, :start, :desc, presence: true
+    validates :name, :address, :city, :country, :postcode, :category, :cuisine, :start, :desc, 
+    :contact_number, presence: true
     belongs_to :user
     has_many :reviews, dependent: :destroy
     has_one_attached :cover
@@ -11,6 +12,8 @@ class Restaurant < ApplicationRecord
 
     has_many :check_ins
     has_many :checking_ins, through: :check_ins, source: :user
+
+    has_many :halal_verifications, dependent: :destroy
 
     
 

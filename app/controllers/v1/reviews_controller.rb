@@ -2,15 +2,13 @@ class V1::ReviewsController < ApplicationController
     def index
         @restaurant = Restaurant.find(params[:restaurant_id])
         @reviews = @restaurant.reviews.all
-        # json_response(@reviews)
         render json: @reviews, status: :ok, include: "**"
     end
 
     def create
         @restaurant = Restaurant.find(params[:restaurant_id])
         @review = @restaurant.reviews.where(user_id: current_user.id).create!(review_params)
-        
-        
+        attach_photo(params[:photo]) if params[:photo]
         json_response(@review, :created)
     end
 
@@ -39,5 +37,11 @@ class V1::ReviewsController < ApplicationController
 
     def review_params
         params.permit(:comment)
+    end
+
+    def attach_photo(image)
+        @review.photo.attach(image)
+        @uri = url_for(@review.photo)
+        @review.update(photo_uri: @uri)
     end
 end

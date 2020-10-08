@@ -6,12 +6,23 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-imgur:
-  service: Imgur
-  client_id: <%= ENV['IMGUR_CLIENT_ID'] %>
-  client_secret: <%= ENV['IMGUR_CLIENT_SECRET'] %>
-  access_token: <%= ENV['IMGUR_ACCESS_TOKEN'] %>
-  refresh_token: <%= ENV['IMGUR_REFRESH_TOKEN'] %>
+# imgur:
+#   service: Imgur
+#   client_id: <%= ENV['IMGUR_CLIENT_ID'] %>
+#   client_secret: <%= ENV['IMGUR_CLIENT_SECRET'] %>
+#   access_token: <%= ENV['IMGUR_ACCESS_TOKEN'] %>
+#   refresh_token: <%= ENV['IMGUR_REFRESH_TOKEN'] %>
+
+google:
+  service: GCS
+  project: got-halal
+  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>
+  bucket: got_halal
+google_dev:
+  service: GCS
+  project: got-halal
+  credentials: <%= Rails.root.join("config/secrets/got-halal.json") %>
+  bucket: got_halal
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3

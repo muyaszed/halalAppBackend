@@ -11,13 +11,12 @@ gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'geocoder'
 
-gem 'activestorage-imgur', :git => 'https://github.com/muyaszed/activestorage-imgur.git', :branch => 'master'
+gem "google-cloud-storage", "~> 1.11", require: false
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
 gem 'koala'
-
-
+gem 'ledermann-rails-settings'
 #this gem is for tweaking activestorage-imgur
 gem "down", "~> 4.4"
 gem 'imgurapi'
