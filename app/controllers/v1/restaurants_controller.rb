@@ -22,6 +22,9 @@ module V1
             @location = @restaurant.create_location(restaurant_params)
             @restaurant.update(location: @location)
             attach_cover(params[:cover]) if params[:cover]
+            if current_user.admin
+                @restaurant.update(approved: true)
+            end
             json_response(@restaurant, :created)
             
         end
@@ -47,7 +50,7 @@ module V1
             params.permit(
                 :name, :address, :city, :country, :postcode, :category, :desc, 
                 :cuisine, :web, :start, :end, :contact_number, {:soc_med => [:facebook, :instagram, :twitter]}, :family_friendly,
-                :surau, :disabled_accessibility, :sub_header
+                :surau, :disabled_accessibility, :sub_header, :cover
             )
         end
 
