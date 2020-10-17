@@ -44,6 +44,12 @@ module V1
             head :no_content
         end
 
+        def approve
+            @restaurant = Restaurant.find(params[:id])
+            @restaurant.update!(approved: true)
+            head :no_content
+        end
+
         private
 
         def restaurant_params
