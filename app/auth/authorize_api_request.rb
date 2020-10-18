@@ -1,8 +1,9 @@
 class AuthorizeApiRequest
 
-    def initialize(headers={})
+    def initialize(headers={}, jwt_info)
       
       @headers = headers
+      @jwt_info = jwt_info
     end
   
     def call
@@ -14,6 +15,7 @@ class AuthorizeApiRequest
     private
   
     attr_reader :headers
+    attr_reader :jwt_info
   
     def user
       @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
@@ -27,8 +29,8 @@ class AuthorizeApiRequest
     end
   
     def decoded_auth_token
-      
-      @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+      jwt = jwt_info ? jwt_info : http_auth_header
+      @decoded_auth_token ||= JsonWebToken.decode(jwt)
     end
   
     def http_auth_header
