@@ -2,9 +2,7 @@ require 'json'
 
 module V1
     class RestaurantsController < ApplicationController
-
         def index
-            
             @restaurants = Restaurant.all
             render json: @restaurants, status: :ok, include: "**"
         end
@@ -12,7 +10,6 @@ module V1
         def show
             
             @restaurant = Restaurant.find(params[:id])
-            
             render json: @restaurant, status: :ok, include: "**"
         end
 

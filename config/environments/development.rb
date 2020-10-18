@@ -52,5 +52,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.allowed_cors_origins = ["http://localhost:3333"]
+  config.allowed_cors_origins = "http://localhost:3333"
 end
