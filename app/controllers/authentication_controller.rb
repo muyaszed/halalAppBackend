@@ -4,7 +4,7 @@ class AuthenticationController < ApplicationController
   def authenticate
     auth_token, user =
       AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
-    cookies.signed[:jwt] = {value: auth_token, httponly: true}
+    cookies.signed[:jwt] = {value: auth_token, httponly: true, secure: true, same_site: 'None'}
     json_response(user: UserSerializer.new(user).as_json)
   end
 
@@ -15,7 +15,7 @@ class AuthenticationController < ApplicationController
       if(params[:admin]) 
         user.update(admin: true);
       end
-      cookies.signed[:jwt] = {value:  auth_token, httponly: true}
+      cookies.signed[:jwt] = {value: auth_token, httponly: true, secure: true, same_site: 'None'}
       response = { message: Message.account_created, user: UserSerializer.new(user).as_json }
       json_response(response, :created)
     else
@@ -23,7 +23,7 @@ class AuthenticationController < ApplicationController
       if existing_user && existing_user.facebook_auth && !existing_user.try(:authenticate, auth_params[:password])
         existing_user.update(password: auth_params[:password])
         auth_token, user = AuthenticateUser.new(existing_user.email, existing_user.password).call
-        cookies.signed[:jwt] = {value:  auth_token, httponly: true}
+        cookies.signed[:jwt] = {value: auth_token, httponly: true, secure: true, same_site: 'None'}
         response = { message: Message.account_created, user: UserSerializer.new(user).as_json }
         json_response(response, :created)
       elsif existing_user.try(:authenticate, auth_params[:password])
