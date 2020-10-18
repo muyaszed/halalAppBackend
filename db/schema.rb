@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_11_170701) do
+ActiveRecord::Schema.define(version: 2020_10_13_185156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_10_11_170701) do
     t.boolean "surau"
     t.boolean "disabled_accessibility"
     t.string "sub_header"
+    t.boolean "approved", default: false
   end
 
   create_table "reviews", force: :cascade do |t|
