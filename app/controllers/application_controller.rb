@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-    
+    include ::ActionController::Cookies
     include Response
     include ExceptionHandler
 
@@ -9,6 +9,7 @@ class ApplicationController < ActionController::API
     private
 
     def authorize_request
-        @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
+        jwt_info = cookies.signed[:jwt]
+        @current_user = (AuthorizeApiRequest.new(request.headers, jwt_info).call)[:user]
     end
 end
