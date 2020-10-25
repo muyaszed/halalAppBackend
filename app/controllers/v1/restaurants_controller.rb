@@ -31,7 +31,7 @@ module V1
             @restaurant.update!(restaurant_params)
             @location = @restaurant.create_location(restaurant_params)
             @restaurant.update(location: @location)
-            attach_cover(params[:cover]) if params[:cover]
+            attach_cover(params[:cover]) if ActiveRecord::Type::Boolean.new.cast(params[:cover])
             head :no_content
         end
 
@@ -53,7 +53,7 @@ module V1
             params.permit(
                 :name, :address, :city, :country, :postcode, :category, :desc, 
                 :cuisine, :web, :start, :end, :contact_number, {:soc_med => [:facebook, :instagram, :twitter]}, :family_friendly,
-                :surau, :disabled_accessibility, :sub_header, :cover
+                :surau, :disabled_accessibility, :sub_header
             )
         end
 
