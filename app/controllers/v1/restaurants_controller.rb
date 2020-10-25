@@ -53,7 +53,7 @@ module V1
             params.permit(
                 :name, :address, :city, :country, :postcode, :category, :desc, 
                 :cuisine, :web, :start, :end, :contact_number, {:soc_med => [:facebook, :instagram, :twitter]}, :family_friendly,
-                :surau, :disabled_accessibility, :sub_header
+                :surau, :disabled_accessibility, :sub_header, :cover
             )
         end
 
