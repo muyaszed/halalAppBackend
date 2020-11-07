@@ -3,11 +3,9 @@ class AuthenticationController < ApplicationController
     # return auth token once user is authenticated
   def authenticate
     from = params[:from]
-    byebug
     auth_token, user =
       AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
     if from != 'mobile'
-      byebug
       cookies.signed[:jwt] = {value: auth_token, httponly: true, secure: true, same_site: 'None'}
     end
     json_response(auth_token: auth_token, user: UserSerializer.new(user).as_json)
