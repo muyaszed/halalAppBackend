@@ -18,7 +18,7 @@ module V1
             @restaurant = current_user.restaurants.create!(restaurant_params)
             @location = @restaurant.create_location(restaurant_params)
             @restaurant.update(location: @location)
-            attach_cover(params[:cover]) if params[:cover]
+            attach_cover(params[:cover]) if ActiveRecord::Type::Boolean.new.cast(params[:cover])
             if current_user.admin
                 @restaurant.update(approved: true)
             end
@@ -31,7 +31,7 @@ module V1
             @restaurant.update!(restaurant_params)
             @location = @restaurant.create_location(restaurant_params)
             @restaurant.update(location: @location)
-            attach_cover(params[:cover]) if params[:cover]
+            attach_cover(params[:cover]) if ActiveRecord::Type::Boolean.new.cast(params[:cover])
             head :no_content
         end
 

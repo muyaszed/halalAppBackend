@@ -11,7 +11,7 @@ class AuthenticateFacebookUser
                     email: profile['email'],
                     uid: profile['id'],
                     oauth_token: oauth_token,
-                    fb_avatar: "https://graph.facebook.com/#{profile['id']}/picture?type=large",
+                    fb_avatar: "https://graph.facebook.com/#{profile['id']}/picture?type=large&access_token=#{@oauth_token}",
                 }
                 if user = User.find_by(email: profile['email'])
                    if user.facebook_auth
