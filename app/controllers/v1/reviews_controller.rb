@@ -36,7 +36,7 @@ class V1::ReviewsController < ApplicationController
     private
 
     def review_params
-        params.permit(:comment)
+        params.permit(:comment, :rating)
     end
 
     def attach_photo(image)
