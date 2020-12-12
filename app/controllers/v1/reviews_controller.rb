@@ -8,7 +8,7 @@ class V1::ReviewsController < ApplicationController
     def create
         @restaurant = Restaurant.find(params[:restaurant_id])
         @review = @restaurant.reviews.where(user_id: current_user.id).create!(review_params)
-        attach_photo(params[:photo]) if params[:photo]
+        attach_photo(params[:photo]) if ActiveRecord::Type::Boolean.new.cast(params[:photo])
         json_response(@review, :created)
     end
 
