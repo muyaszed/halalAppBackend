@@ -19,6 +19,7 @@ gem 'ledermann-rails-settings'
 #this gem is for tweaking activestorage-imgur
 gem "down", "~> 4.4"
 gem 'imgurapi'
+gem 'apple_auth'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
