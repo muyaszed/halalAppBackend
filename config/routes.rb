@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   post 'auth/logout', to: 'authentication#destroy'
   post 'signup', to: 'authentication#create'
   post 'auth/fb_login', to: 'facebook_authentication#create'
+  post 'auth/apple_login', to: 'apple_authentication#create'
 end
