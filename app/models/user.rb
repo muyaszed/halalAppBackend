@@ -5,6 +5,8 @@ class User < ApplicationRecord
     has_many :reviews, dependent: :destroy
     has_one :profile, dependent: :destroy
     has_one :facebook_auth, dependent: :destroy
+    has_one :user_apple_auth, dependent: :destroy
+
     validates :email, :password_digest, presence: true, uniqueness: true
 
     has_many :bookmarks

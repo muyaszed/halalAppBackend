@@ -5,8 +5,8 @@ class UserSerializer < ActiveModel::Serializer
     has_one :profile
     has_many :bookmarked_restaurant
     has_one :facebook_auth
+    has_one :user_apple_auth
     
-
     def checkinlist
       arr = []
       self.object.check_ins.map do |rest|
