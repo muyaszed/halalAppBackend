@@ -8,7 +8,7 @@ class AuthenticateAppleUser
           if user_authenticate?
 
               data = {
-                  name: @apple_user_info[:fullName][:givenName] + ' ' + @apple_user_info[:fullName][:familyName],
+                  name: '',
                   email: user_authenticate?[:email],
                   uid: @apple_user_info[:user],
                   auth_code: @apple_user_info[:authorizationCode]
